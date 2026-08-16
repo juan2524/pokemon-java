@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: pokemon-api
+  cache:
+    type: caffeine
+  datasource:
+    url: jdbc:postgresql://localhost:5432/pokemon
+    username: pokemon
+    password: pokemon
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  flyway:
+    enabled: true
+
+server:
+  port: 8080
+
+pokeapi:
+  base-url: https://pokeapi.co/api/v2
+
+app:
+  security:
+    jwt-secret: ${JWT_SECRET:local-dev-jwt-secret-change-me-32b}
+    jwt-ttl-seconds: 3600
+  cors:
+    allowed-origins: ${CORS_ORIGINS:http://localhost:5173}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://postgres:5432/pokemon}
+    username: ${SPRING_DATASOURCE_USERNAME:pokemon}
+    password: ${SPRING_DATASOURCE_PASSWORD:pokemon}

@@ -1,0 +1,40 @@
+---
+description: Core stack, architecture, and coding standards for this repository
+alwaysApply: true
+---
+
+# Project Standards
+
+## Stack
+
+- Java 21, Spring Boot, Maven, PostgreSQL
+- React + TypeScript frontend
+
+## Architecture
+
+- Follow Clean Architecture.
+- Domain must not depend on Spring, JPA, HTTP, or external API classes.
+- Use constructor injection only (no field/`@Autowired` injection).
+
+## API & DTOs
+
+- Never return JPA entities from controllers; map to request/response DTOs.
+- Prefer Java `record` types for immutable DTOs when practical.
+- Add Jakarta Bean Validation annotations to every write request DTO.
+- Return RFC-style structured error responses via one global exception handler.
+
+## Caching
+
+- Cache read-only PokéAPI responses with Caffeine.
+- TTL: 10 minutes.
+
+## Testing
+
+- Use TDD: write a failing unit test before production code for each use case.
+- Every public endpoint must have tests.
+
+## Security & Hygiene
+
+- Never log passwords, JWTs, or sensitive configuration values.
+- Keep commits small and focused.
+- Do not generate unused files or placeholder TODO implementations.
